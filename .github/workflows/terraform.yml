@@ -3,7 +3,29 @@ name: "AWS Infrastructure"
 on:
   push:
     branches:
-      - main
       - feature/*
     paths:
-      - terraform/infra/**/*
+      - terraform/infra/dev/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: tflint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflink@v3
+        with:
+          tflint_version: v0.44.1
+
+      - name: Show TFLint Version
+        run: tflint --version
+
+      - name: Validate
+        working-directory: terraform/infra/dev
+        run: tflint --format=compact --recursive --color --minimum-failure-severity=error
