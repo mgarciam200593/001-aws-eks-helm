@@ -29,7 +29,6 @@ jobs:
       - name: Validate
         working-directory: terraform/infra/dev
         run: |
-          pwd
           tflint --format=compact --recursive --color --minimum-failure-severity=error
 
   security:
@@ -46,5 +45,5 @@ jobs:
       - name: Analysis
         uses: aquasecurity/tfsec-action@v1.0.0
         with:
-          soft_tail: true
+          soft_fail: true
 
