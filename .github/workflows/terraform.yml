@@ -41,6 +41,7 @@ jobs:
 
       - name: Set Working Directory
         working-directory: terraform/infra/dev
+        run: pwd
       
       - name: Analysis
         uses: aquasecurity/tfsec-action@v1.0.0
