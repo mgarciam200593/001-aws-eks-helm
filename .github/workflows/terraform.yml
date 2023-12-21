@@ -49,7 +49,6 @@ jobs:
     name: Plan
     runs-on: ubuntu-latest
     env:
-      TF_CLI_ARGS: -chdir=./terraform/infra/dev
       AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     needs: security
@@ -62,12 +61,8 @@ jobs:
         with:
           terraform_version: "1.6.5"
 
-      - name: Change Working Directory
-        working-directory: terraform/infra/dev
-        run: pwd
-
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=./terraform/infra/dev init
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform -chdir=./terraform/infra/dev plan
