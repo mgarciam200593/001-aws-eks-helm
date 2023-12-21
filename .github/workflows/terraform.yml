@@ -1,0 +1,9 @@
+name: "AWS Infrastructure"
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+    paths:
+      - terraform/infra/**/*
