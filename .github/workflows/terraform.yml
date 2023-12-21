@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: tflint
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,4 +28,20 @@ jobs:
 
       - name: Validate
         working-directory: terraform/infra/dev
-        run: tflint --format=compact --recursive --color --minimum-failure-severity=error
+        run: |
+          pwd
+          tflint --format=compact --recursive --color --minimum-failure-severity=error
+
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Analysis
+        working-directory: terraform/infra/dev
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_tail: true
+
