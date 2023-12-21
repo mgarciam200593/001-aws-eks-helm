@@ -5,7 +5,14 @@ terraform {
       version = "5.30.0"
     }
   }
+
   required_version = "1.5.5"
+
+  backend "s3" {
+    bucket = "reportdataanalysis-aa.dev.apilab.bancodelaustro.com"
+    key = "dev/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
